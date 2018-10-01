@@ -36,23 +36,36 @@ def extract_problems():
         problem_file.close()
         return problems
 
-signal = "+-"
-operations = "+-*/%^"
+#valid operation 
+operations = "-+*/%^"
+#note  " - " minus must be at first so if it is just signal operation will be the real one     
 numbers = "1234567890"
+
 valid_input = operations + numbers
 
 problems = extract_problems()
 
 for problem in problems:
-    #git first num signal
-
+    #git operation index
+    for operation in operations:
+        if operation in problem:
+            index =problem.index(operation)
     #git first num
+    
+    try:
+        num1 = int(problem[:index])
 
-    #git operation
+        #git operation
+        operation = problem[index]
 
-    #git second num signal
+        #second number
+        num2 = int(problem[index+1:])
 
-    #second number
-    pass
-else:
-    pass
+        #print result
+        print(problem)
+        print(calc(num1,operation,num2))
+
+    except ValueError:
+        pass
+    except IndexError:
+        pass
