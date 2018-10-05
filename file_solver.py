@@ -72,21 +72,24 @@ def extract_problems(file_name = "problems.txt"):
         problem_file.close()
         return problems
 
+
 #valid operation 
 operations = "-+*/%^"
 #note  " - " minus must be at first so if it is just signal operation will be the real one     
 numbers = "1234567890"
-
+#all valid input in the text file
 valid_input = operations + numbers
 
+#git list of problems
 problems = extract_problems()
 
 for problem in problems:
-    #git operation index
+    #git operation index there is a minus before first num ignored and index will update to the operation
+    #if a minus befor second number it will also be ignored as minus was already checked
+    # TODO what if operation is minus and there is minus
     for operation in operations:
         if operation in problem:
             index =problem.index(operation)
-    #git first num
     
     try:
         num1 = int(problem[:index])
