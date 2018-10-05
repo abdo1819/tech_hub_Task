@@ -1,6 +1,17 @@
 import os
 
 def calc(num1 , operation , num2):
+    '''calc function document
+    this is function do basic calculation (+  -  *  /  ^  %) betweewn two numbers with operation passed as string
+    #parameters 
+    num1 ,num: numbers to be calculated
+    operation: a string represent the operation bewean the two numbers
+    #examples
+    >>>print (calc(4,'*',-5))
+    -20 
+    >>>print (calc(200,'/',10)+calc(10,'^',2))
+    120
+    '''
     if (operation == '+'):
         return num1+num2
     elif(operation== '-'):
