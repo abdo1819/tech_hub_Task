@@ -72,6 +72,22 @@ def extract_problems(file_name = "problems.txt"):
         problem_file.close()
         return problems
 
+def clean(problems):
+    '''remove unsuported char from problem
+    # parameters :
+    list of problems
+
+    #example 
+    >>>print (clean('-1    +   23 ,')
+    -1+23
+    '''
+
+    clear_problems=['']*len(problems)
+    for i in range(len(problems)):
+        for char in problems[i]:
+            if char in valid_input:
+                clear_problems[i]+=char
+    return clear_problems
 
 #valid operation 
 operations = "-+*/%^"
@@ -80,20 +96,27 @@ numbers = "1234567890"
 #all valid input in the text file
 valid_input = operations + numbers
 
+
+
 #git list of problems
 problems = extract_problems()
 
+#remove spaces and other unsuportted char from problems
+problems = clean(problems)
+
+#open file for writing answers
+sol = open("solution.txt","w+")
+
+
 for problem in problems:
-    #git operation index there is a minus before first num ignored and index will update to the operation
+    #git operation index there is a minus before first num it will be ignored 
     #if a minus befor second number it will also be ignored as minus was already checked
-    # TODO what if operation is minus and there is minus
     for operation in operations:
-        if operation in problem:
-            index =problem.index(operation)
+        if operation in problem[1:]:
+            index =problem[1:].index(operation)+1  #ignore first number it may be minus and add one to index
     
     try:
         num1 = int(problem[:index])
-
         #git operation
         operation = problem[index]
 
@@ -101,10 +124,15 @@ for problem in problems:
         num2 = int(problem[index+1:])
 
         #print result
-        print(problem)
-        print(calc(num1,operation,num2))
+        
+        ans = str(calc(num1,operation,num2))
+        sol.write(ans+'\n')
+        
+        
 
     except ValueError:
         pass
     except IndexError:
         pass
+
+sol.close()
